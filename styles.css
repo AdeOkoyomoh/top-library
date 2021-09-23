@@ -1,0 +1,106 @@
+:root {
+    --side-menu-color: #F3F2F2;
+    --header-text-color: #5B5B5B;
+    --footer-text-color: #A8A8A8;
+    --button-bg: rgba(77, 131, 235, 89);
+    --button-text-color: #FFFFFF;
+    --book-tile-bg: #F0EEEE;
+    --shadow-value: 0 2px 8px 1px rgba(0, 0, 0, 31);
+    --main-font-family: "Raleway", sans-serif;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    height: 97vh;
+    width: 95vw;
+}
+
+#sidemenu {
+    background-color: var(--side-menu-color);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding-left: 2rem;
+    position: fixed;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    padding-right: 4.7rem;
+}
+
+#main-display {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+}
+
+#main-heading {
+    padding: 2rem 0 0 0; 
+    font-family: var(--main-font-family);
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--header-text-color);
+    line-height: 2.1rem;
+}
+
+#addButton {
+    padding: 1rem 3rem 1rem 3rem;
+    font-family: var(--main-font-family);
+    border: none;
+    border-radius: 3rem;
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    font-weight: bold;
+    font-size: 1.5rem;
+    transition: all 0.23s;
+}
+
+#addButton:hover {
+    box-shadow: 0 0 2px 2px rgba(77, 131, 235, 50);
+    cursor: pointer;
+}
+
+#footer-text {
+    font-size: 0.75rem;
+    font-family: var(--main-font-family);
+    color: var(--footer-text-color);
+}
+
+.book-tile {
+    margin: auto;
+    width: 80%;
+    box-shadow: 0 2px 8px 1px rgba(228, 228, 228, 70);
+    border-radius: 1.5rem;
+    padding-left: 1.7rem;
+    font-family: var(--main-font-family);
+    color: var(--header-text-color);
+}
+
+.book-tile > h2 {
+    font-weight: 800;
+    padding-bottom: 0.1rem;
+    margin-bottom: 0.1rem;
+    font-size: 2rem;
+    height: auto;
+}
+
+.book-tile > p.author {
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.book-tile > p {
+    font-family: "Montserrat", sans-serif;
+}
