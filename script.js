@@ -2,8 +2,6 @@ let myLibrary = [
 
 ];
 
-let initializedNumber = 0;
-
 function Book(title, author, pages, hasBeenRead){
     this.title = title;
     this.author = author;
@@ -24,6 +22,14 @@ Book.prototype.statusDisplay = function(){
         return `Finished`;
     } else {
         return `Not Yet Finished`
+    }
+};
+
+Book.prototype.buttonStatus = function(){
+    if (this.hasBeenRead === true){
+        return `Not Read`
+    } else {
+        return `Read`
     }
 }
 
@@ -50,8 +56,18 @@ function checkYesOrNo(input){
         return true
     } else if (input.toLowerCase() === 'no') {
         return false
+    } else {
+        return false;
     }
    };
+
+function numberChecker(input){
+    if (input * 1 == input){
+        return input
+    } else {
+        return `Unspecified`
+    }
+}
 
 
 function addBook(){
@@ -60,7 +76,20 @@ function addBook(){
     let input3 = prompt("How many pages does it have?");
     let input4 = checkYesOrNo(prompt("Have you finished it?"));
 
-    addBookToLibrary(input1, input2, input3, input4);
+    addBookToLibrary(input1, input2, numberChecker(input3), input4);
+}
+
+function changeReadStatus(book){
+    book.beenRead();
+}
+
+function removeBook(book){
+    for (let i = 0; i < myLibrary.length; i++){
+        if (book === myLibrary[i]){
+            myLibrary.splice(i, 1);
+        }
+    }
+    displayBooks();
 }
 
 let addButton = document.querySelector('#addButton');
@@ -81,6 +110,23 @@ function displayBooks(){
         newDivPages.textContent = `${myLibrary[i].pages} pages`;
         let newDivStatus = document.createElement('p');
         newDivStatus.textContent = `${myLibrary[i].statusDisplay()}`;
+        let newDivButton = document.createElement('button');
+        newDivButton.textContent = `${myLibrary[i].buttonStatus()}`;
+        newDivButton.classList.add('readButton');
+        newDivButton.setAttribute('data-key', `${i}`);
+        newDivButton.addEventListener('click', function(e){
+            myLibrary[e.path[0].attributes[1].nodeValue].beenRead();
+            displayBooks();
+        });
+        let removeButton = document.createElement('button');
+        removeButton.textContent = `Remove Book`;
+        removeButton.classList.add('remove-button');
+        removeButton.setAttribute('data-key', `${i}`);
+        removeButton.addEventListener('click', function(e){
+            console.log(e);
+            removeBook(myLibrary[e.path[0].attributes[1].nodeValue]);
+            displayBooks();
+        })
 
         console.log(newDiv);
         display.appendChild(newDiv);
@@ -88,7 +134,10 @@ function displayBooks(){
         newDiv.appendChild(newDivAuthor);
         newDiv.appendChild(newDivPages);
         newDiv.appendChild(newDivStatus);
+        newDiv.appendChild(newDivButton);
+        newDiv.appendChild(removeButton);
 
         newDiv.classList.add('book-tile');
+        newDiv.setAttribute('data-key', `${i}`);
     };
 };
